@@ -24,7 +24,6 @@ class SignLanguage:
         """
         Create a CNN model and save it to self.model
         """
-        
         # Create a Sequential model
         model = Sequential() 
         # Convolution layer
@@ -47,7 +46,6 @@ class SignLanguage:
         # Compile the model with categorical_crossentropy
         model.compile('adam', loss=keras.losses.categorical_crossentropy, 
                       metrics=['accuracy'])
-        
         self.model = model
     
     def prepare_data(self, images, labels):
@@ -87,7 +85,6 @@ class SignLanguage:
         :param epochs     Number of epochs to use for training
         :param verbose    Whether or not to print training output
         """
-        
         history = self.model.fit(self.data['train'][0], self.data['train'][1], 
                                  batch_size=batch_size, epochs=epochs, 
                                  verbose=verbose, validation_data=self.data['test'])
@@ -100,9 +97,6 @@ class SignLanguage:
         :param data: numpy array of test images
         :return a numpy array of test labels. array size = (num_examples, )
         """
-        
-        # Don't forget to normalize the data in the same way as training data
-        # self.model.predict() and np.argmax( , axis=1) might help
         data_norm =  np.array([np.array(example.reshape(-1, 28, 1)) for example in data])
         predictions = np.argmax(self.model.predict(data_norm), axis=1)
         return predictions
